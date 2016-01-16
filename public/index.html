@@ -19,14 +19,16 @@
 
         <h1>Willie Payne</h1>
 
-        <h2>Favorite Programming Languages</h2>
-        <ul class="collection">
-          <li class="collection-item">Python</li>
-          <li class="collection-item">Haskell</li>
+        <h3>Favorite Programming Languages</h3>
+        <ul class="collection" id="languages">
         </ul>
 
-        <h2>Favorite Food</h2>
+        <h3>Favorite Foods</h3>
         <ul class="collection" id="foods">
+        </ul>
+
+        <h3>Favorite Books</h3>
+        <ul class="collection" id="books">
         </ul>
 
       </div>
@@ -37,12 +39,29 @@
         var ref = new Firebase('https://willie-hello-uccd2.firebaseio.com')
 
         // read data from the location bio/favorite_foods, only once
+        ref.child('bio/favorite_languages').once('value', function(snapshot){
+          var foods = snapshot.val()
+          foods.forEach(function(language){
+            $('#languages').append('<li class="collection-item">' + language + '</li>')
+          })
+        })
+
+        // read data from the location bio/favorite_foods, only once
         ref.child('bio/favorite_foods').once('value', function(snapshot){
           var foods = snapshot.val()
           foods.forEach(function(food){
             $('#foods').append('<li class="collection-item">' + food + '</li>')
           })
         })
+
+        // read data from the location bio/favorite_foods, only once
+        ref.child('bio/favorite_books').once('value', function(snapshot){
+          var foods = snapshot.val()
+          foods.forEach(function(book){
+            $('#books').append('<li class="collection-item">' + book + '</li>')
+          })
+        })
+
       </script>
     </body>
   </html>
